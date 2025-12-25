@@ -97,42 +97,6 @@ graph TD
    npm run dev
    ```
 
-## 8. GitHub Upload Instructions
-1. Initialize Git in the root `AdvertisingSalesAI` folder:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of AI Project"
-   ```
-2. Create a new repository on GitHub.
-3. Link and push:
-   ```bash
-   git remote add origin https://github.com/<your-username>/AdvertisingSalesAI.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-## 9. Deployment Steps
-
-### Backend (Render.com)
-1. Push your code to GitHub.
-2. Go to [Render Dashboard](https://dashboard.render.com/) -> New -> Web Service.
-3. Connect your GitHub repository.
-4. Settings:
-   - **Root Directory:** `backend`
-   - **Runtime:** Python 3
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `uvicorn app:app --host 0.0.0.0 --port $PORT`
-5. Click **Create Web Service**.
-
-### Frontend (Vercel)
-1. Go to [Vercel Dashboard](https://vercel.com/) -> Add New -> Project.
-2. Import your GitHub repository.
-3. Framework Preset: **Vite**.
-4. Root Directory: `frontend`.
-5. Environment Variables:
-   - Name: `VITE_API_URL` (Wait, for this project we hardcoded localhost for dev, but for prod you should implement env vars in `api.js` to point to your Render URL).
-6. Click **Deploy**.
 
 ## 10. Future Enhancements
 - [ ] Add historical data visualization.
