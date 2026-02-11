@@ -15,9 +15,9 @@ const BudgetChart = ({ budget }) => {
   const chartData = useMemo(() => {
     if (total === 0) {
       return [
-        { name: 'TV', value: 0, percent: 0, color: '#6366F1' },
-        { name: 'Radio', value: 0, percent: 0, color: '#10B981' },
-        { name: 'Newspaper', value: 0, percent: 0, color: '#F59E0B' }
+        { name: 'TV', value: 0, percent: 0, color: '#7C3AED' },
+        { name: 'Radio', value: 0, percent: 0, color: '#0EA5E9' },
+        { name: 'Newspaper', value: 0, percent: 0, color: '#F472B6' }
       ];
     }
 
@@ -26,19 +26,19 @@ const BudgetChart = ({ budget }) => {
         name: 'TV', 
         value: tv, 
         percent: ((tv / total) * 100).toFixed(1), 
-        color: '#6366F1' 
+        color: '#7C3AED' 
       },
       { 
         name: 'Radio', 
         value: radio, 
         percent: ((radio / total) * 100).toFixed(1), 
-        color: '#10B981' 
+        color: '#0EA5E9' 
       },
       { 
         name: 'Newspaper', 
         value: newspaper, 
         percent: ((newspaper / total) * 100).toFixed(1), 
-        color: '#F59E0B' 
+        color: '#F472B6' 
       }
     ];
   }, [tv, radio, newspaper, total]);
@@ -60,6 +60,24 @@ const BudgetChart = ({ budget }) => {
       return segment;
     });
   }, [chartData, circumference]);
+
+  // Generate insight based on budget allocation
+  const getInsight = () => {
+    if (total === 0) return "Set your advertising budget to see insights.";
+    
+    const tvPercent = parseFloat(chartData[0].percent);
+    const radioPercent = parseFloat(chartData[1].percent);
+    
+    if (tvPercent > 60) {
+      return "TV dominates your strategy. Consider diversifying for broader reach across channels.";
+    } else if (radioPercent > 40) {
+      return "Strong radio allocation! Great for local market penetration and brand awareness.";
+    } else if (tvPercent < 30 && radioPercent < 30) {
+      return "Balanced multi-channel approach. Optimal for reaching diverse audience segments.";
+    } else {
+      return "Your budget distribution supports a well-rounded advertising campaign.";
+    }
+  };
 
   return (
     <div className="card chart-card">
@@ -83,12 +101,12 @@ const BudgetChart = ({ budget }) => {
               cy="100"
               r={radius}
               fill="none"
-              stroke="var(--border)"
-              strokeWidth="35"
+              stroke="rgba(255, 255, 255, 0.1)"
+              strokeWidth="40"
             />
             
             {/* Data segments */}
-            {segments.map((segment, index) => (
+            {segments.map((segment) => (
               <circle
                 key={segment.name}
                 cx="100"
@@ -96,7 +114,7 @@ const BudgetChart = ({ budget }) => {
                 r={radius}
                 fill="none"
                 stroke={segment.color}
-                strokeWidth="35"
+                strokeWidth="40"
                 strokeDasharray={segment.dashArray}
                 strokeDashoffset={segment.offset}
                 style={{
@@ -111,7 +129,7 @@ const BudgetChart = ({ budget }) => {
             <div className="donut-total">
               {total > 0 ? `$${total.toLocaleString()}` : '$0'}
             </div>
-            <div className="donut-label">Total Budget</div>
+            <div className="donut-label">Total</div>
           </div>
         </div>
 
@@ -132,28 +150,11 @@ const BudgetChart = ({ budget }) => {
         </div>
 
         {/* Insights */}
-        {total > 0 && (
-          <div style={{ 
-            marginTop: '1.5rem', 
-            padding: '1rem', 
-            background: 'var(--background)', 
-            borderRadius: 'var(--radius-md)',
-            borderLeft: '4px solid var(--primary)'
-          }}>
-            <p style={{ 
-              fontSize: '0.875rem', 
-              color: 'var(--text-secondary)',
-              lineHeight: '1.5'
-            }}>
-              <strong style={{ color: 'var(--text-primary)' }}>Insight:</strong>{' '}
-              {chartData[0].percent > 50 
-                ? 'TV advertising dominates your budget. Consider diversifying for broader reach.'
-                : chartData[1].percent > 40
-                ? 'Radio has strong allocation. Great for local market penetration.'
-                : 'Your budget is well-distributed across channels for balanced exposure.'}
-            </p>
-          </div>
-        )}
+        <div className="insight-box">
+          <p>
+            <strong>💡 Insight:</strong> {getInsight()}
+          </p>
+        </div>
       </div>
     </div>
   );

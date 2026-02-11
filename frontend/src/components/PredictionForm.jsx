@@ -50,7 +50,6 @@ const PredictionForm = ({ onPredict, onBudgetChange }) => {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [touched, setTouched] = useState({});
 
   // Update parent component when budget changes
   const updateBudget = useCallback((data) => {
@@ -68,11 +67,6 @@ const PredictionForm = ({ onPredict, onBudgetChange }) => {
     setFormData(prev => ({
       ...prev,
       [name]: newValue
-    }));
-    
-    setTouched(prev => ({
-      ...prev,
-      [name]: true
     }));
     
     if (error) setError(null);
@@ -228,23 +222,9 @@ const PredictionForm = ({ onPredict, onBudgetChange }) => {
         </div>
 
         {/* Total Budget Display */}
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          padding: '0.75rem 1rem',
-          background: 'var(--background)',
-          borderRadius: 'var(--radius-md)',
-          marginTop: '0.5rem'
-        }}>
-          <span style={{ color: 'var(--text-secondary)', fontWeight: '500' }}>Total Budget</span>
-          <span style={{ 
-            color: 'var(--text-primary)', 
-            fontWeight: '700',
-            fontSize: '1.1rem'
-          }}>
-            ${totalBudget.toLocaleString()}
-          </span>
+        <div className="total-budget-display">
+          <span>Total Investment</span>
+          <span>${totalBudget.toLocaleString()}</span>
         </div>
 
         {/* Submit Button */}
