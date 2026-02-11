@@ -15,9 +15,9 @@ const BudgetChart = ({ budget }) => {
   const chartData = useMemo(() => {
     if (total === 0) {
       return [
-        { name: 'TV', value: 0, percent: 0, color: '#7C3AED' },
-        { name: 'Radio', value: 0, percent: 0, color: '#0EA5E9' },
-        { name: 'Newspaper', value: 0, percent: 0, color: '#F472B6' }
+        { name: 'TV', value: 0, percent: 0, color: '#A855F7' },
+        { name: 'Radio', value: 0, percent: 0, color: '#10B981' },
+        { name: 'Newspaper', value: 0, percent: 0, color: '#F59E0B' }
       ];
     }
 
@@ -26,19 +26,19 @@ const BudgetChart = ({ budget }) => {
         name: 'TV', 
         value: tv, 
         percent: ((tv / total) * 100).toFixed(1), 
-        color: '#7C3AED' 
+        color: '#A855F7' 
       },
       { 
         name: 'Radio', 
         value: radio, 
         percent: ((radio / total) * 100).toFixed(1), 
-        color: '#0EA5E9' 
+        color: '#10B981' 
       },
       { 
         name: 'Newspaper', 
         value: newspaper, 
         percent: ((newspaper / total) * 100).toFixed(1), 
-        color: '#F472B6' 
+        color: '#F59E0B' 
       }
     ];
   }, [tv, radio, newspaper, total]);
